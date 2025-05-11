@@ -1,0 +1,357 @@
+-- Procedimiento A
+CREATE PROCEDURE procedimientoA()
+BEGIN
+    DECLARE varX INT;
+    DECLARE varT INT;
+    DECLARE varA INT;
+    DECLARE varY INT;
+
+    DECLARE errorFlag BOOL DEFAULT 0;
+    DECLARE CONTINUE HANDLER FOR SQLEXCEPTION SET errorFlag=1;
+    DECLARE CONTINUE HANDLER FOR SQLWARNING SET errorFlag=1;
+
+    REPEAT
+        SET errorFlag = 0;
+        START TRANSACTION;
+
+        -- READ 'X'
+        SELECT * FROM variables WHERE name='X' FOR SHARE;
+        SELECT value INTO varX FROM variables WHERE name='X';
+
+        -- X = X + 1
+        SET varX = varX + 1;
+
+        -- UPDATE 'X'
+        SELECT * FROM variables WHERE name='X' FOR UPDATE;
+        UPDATE variables SET value=varX WHERE name='X';
+
+        -- READ 'T', 'A', 'Y'
+        SELECT * FROM variables WHERE name='T' FOR SHARE;
+        SELECT value INTO varT FROM variables WHERE name='T';
+
+        SELECT * FROM variables WHERE name='A' FOR SHARE;
+        SELECT value INTO varA FROM variables WHERE name='A';
+
+        SELECT * FROM variables WHERE name='Y' FOR SHARE;
+        SELECT value INTO varY FROM variables WHERE name='Y';
+
+        -- T = T + Y
+        SET varT = varT + varY;
+
+        -- A = A + Y
+        SET varA = varA + varY;
+
+        -- UPDATE 'T' and 'A'
+        SELECT * FROM variables WHERE name='T' FOR UPDATE;
+        UPDATE variables SET value=varT WHERE name='T';
+
+        SELECT * FROM variables WHERE name='A' FOR UPDATE;
+        UPDATE variables SET value=varA WHERE name='A';
+
+        IF errorFlag THEN
+            ROLLBACK;
+        ELSE
+            COMMIT;
+        END IF;
+    UNTIL NOT errorFlag END REPEAT;
+END;
+
+
+-- Procedimiento B
+CREATE PROCEDURE procedimientoB()
+BEGIN
+    DECLARE varY INT;
+    DECLARE varT INT;
+    DECLARE varB INT;
+    DECLARE varZ INT;
+
+    DECLARE errorFlag BOOL DEFAULT 0;
+    DECLARE CONTINUE HANDLER FOR SQLEXCEPTION SET errorFlag=1;
+    DECLARE CONTINUE HANDLER FOR SQLWARNING SET errorFlag=1;
+
+    REPEAT
+        SET errorFlag = 0;
+        START TRANSACTION;
+
+        -- READ 'Y'
+        SELECT * FROM variables WHERE name='Y' FOR SHARE;
+        SELECT value INTO varY FROM variables WHERE name='Y';
+
+        -- Y = Y + 1
+        SET varY = varY + 1;
+
+        -- UPDATE 'Y'
+        SELECT * FROM variables WHERE name='Y' FOR UPDATE;
+        UPDATE variables SET value=varY WHERE name='Y';
+
+        -- READ 'T', 'B', 'Z'
+        SELECT * FROM variables WHERE name='T' FOR SHARE;
+        SELECT value INTO varT FROM variables WHERE name='T';
+
+        SELECT * FROM variables WHERE name='B' FOR SHARE;
+        SELECT value INTO varB FROM variables WHERE name='B';
+
+        SELECT * FROM variables WHERE name='Z' FOR SHARE;
+        SELECT value INTO varZ FROM variables WHERE name='Z';
+
+        -- T = T + Z
+        SET varT = varT + varZ;
+
+        -- B = B + Z
+        SET varB = varB + varZ;
+
+        -- UPDATE 'T' and 'B'
+        SELECT * FROM variables WHERE name='T' FOR UPDATE;
+        UPDATE variables SET value=varT WHERE name='T';
+
+        SELECT * FROM variables WHERE name='B' FOR UPDATE;
+        UPDATE variables SET value=varB WHERE name='B';
+
+        IF errorFlag THEN
+            ROLLBACK;
+        ELSE
+            COMMIT;
+        END IF;
+    UNTIL NOT errorFlag END REPEAT;
+END;
+
+
+-- Procedimiento C
+CREATE PROCEDURE procedimientoC()
+BEGIN
+    DECLARE varZ INT;
+    DECLARE varT INT;
+    DECLARE varC INT;
+    DECLARE varX INT;
+
+    DECLARE errorFlag BOOL DEFAULT 0;
+    DECLARE CONTINUE HANDLER FOR SQLEXCEPTION SET errorFlag=1;
+    DECLARE CONTINUE HANDLER FOR SQLWARNING SET errorFlag=1;
+
+    REPEAT
+        SET errorFlag = 0;
+        START TRANSACTION;
+
+        -- READ 'Z'
+        SELECT * FROM variables WHERE name='Z' FOR SHARE;
+        SELECT value INTO varZ FROM variables WHERE name='Z';
+
+        -- Z = Z + 1
+        SET varZ = varZ + 1;
+
+        -- UPDATE 'Z'
+        SELECT * FROM variables WHERE name='Z' FOR UPDATE;
+        UPDATE variables SET value=varZ WHERE name='Z';
+
+        -- READ 'T', 'C', 'X'
+        SELECT * FROM variables WHERE name='T' FOR SHARE;
+        SELECT value INTO varT FROM variables WHERE name='T';
+
+        SELECT * FROM variables WHERE name='C' FOR SHARE;
+        SELECT value INTO varC FROM variables WHERE name='C';
+
+        SELECT * FROM variables WHERE name='X' FOR SHARE;
+        SELECT value INTO varX FROM variables WHERE name='X';
+
+        -- T = T + X
+        SET varT = varT + varX;
+
+        -- C = C + X
+        SET varC = varC + varX;
+
+        -- UPDATE 'T' and 'C'
+        SELECT * FROM variables WHERE name='T' FOR UPDATE;
+        UPDATE variables SET value=varT WHERE name='T';
+
+        SELECT * FROM variables WHERE name='C' FOR UPDATE;
+        UPDATE variables SET value=varC WHERE name='C';
+
+        IF errorFlag THEN
+            ROLLBACK;
+        ELSE
+            COMMIT;
+        END IF;
+    UNTIL NOT errorFlag END REPEAT;
+END;
+
+
+-- Procedimiento D
+CREATE PROCEDURE procedimientoD()
+BEGIN
+    DECLARE varT INT;
+    DECLARE varD INT;
+    DECLARE varZ INT;
+    DECLARE varX INT;
+
+    DECLARE errorFlag BOOL DEFAULT 0;
+    DECLARE CONTINUE HANDLER FOR SQLEXCEPTION SET errorFlag=1;
+    DECLARE CONTINUE HANDLER FOR SQLWARNING SET errorFlag=1;
+
+    REPEAT
+        SET errorFlag = 0;
+        START TRANSACTION;
+
+        -- READ 'T', 'D', 'Z'
+        SELECT * FROM variables WHERE name='T' FOR SHARE;
+        SELECT value INTO varT FROM variables WHERE name='T';
+
+        SELECT * FROM variables WHERE name='D' FOR SHARE;
+        SELECT value INTO varD FROM variables WHERE name='D';
+
+        SELECT * FROM variables WHERE name='Z' FOR SHARE;
+        SELECT value INTO varZ FROM variables WHERE name='Z';
+
+        -- T = T + Z
+        SET varT = varT + varZ;
+
+        -- D = D + Z
+        SET varD = varD + varZ;
+
+        -- UPDATE 'T' and 'D'
+        SELECT * FROM variables WHERE name='T' FOR UPDATE;
+        UPDATE variables SET value=varT WHERE name='T';
+
+        SELECT * FROM variables WHERE name='D' FOR UPDATE;
+        UPDATE variables SET value=varD WHERE name='D';
+
+        -- READ 'X'
+        SELECT * FROM variables WHERE name='X' FOR SHARE;
+        SELECT value INTO varX FROM variables WHERE name='X';
+
+        -- X = X - 1
+        SET varX = varX - 1;
+
+        -- UPDATE 'X'
+        SELECT * FROM variables WHERE name='X' FOR UPDATE;
+        UPDATE variables SET value=varX WHERE name='X';
+
+        IF errorFlag THEN
+            ROLLBACK;
+        ELSE
+            COMMIT;
+        END IF;
+    UNTIL NOT errorFlag END REPEAT;
+END;
+
+
+-- Procedimiento E
+CREATE PROCEDURE procedimientoE()
+BEGIN
+    DECLARE varT INT;
+    DECLARE varE INT;
+    DECLARE varX INT;
+    DECLARE varY INT;
+
+    DECLARE errorFlag BOOL DEFAULT 0;
+    DECLARE CONTINUE HANDLER FOR SQLEXCEPTION SET errorFlag=1;
+    DECLARE CONTINUE HANDLER FOR SQLWARNING SET errorFlag=1;
+
+    REPEAT
+        SET errorFlag = 0;
+        START TRANSACTION;
+
+        -- READ 'T'
+        SELECT * FROM variables WHERE name='T' FOR SHARE;
+        SELECT value INTO varT FROM variables WHERE name='T';
+
+        -- READ 'E'
+        SELECT * FROM variables WHERE name='E' FOR SHARE;
+        SELECT value INTO varE FROM variables WHERE name='E';
+
+        -- READ 'X'
+        SELECT * FROM variables WHERE name='X' FOR SHARE;
+        SELECT value INTO varX FROM variables WHERE name='X';
+
+        -- T = T + X
+        SET varT = varT + varX;
+
+        -- E = E + X
+        SET varE = varE + varX;
+
+        -- UPDATE 'T' and 'E'
+        SELECT * FROM variables WHERE name='T' FOR UPDATE;
+        UPDATE variables SET value=varT WHERE name='T';
+
+        SELECT * FROM variables WHERE name='E' FOR UPDATE;
+        UPDATE variables SET value=varE WHERE name='E';
+
+        -- READ 'Y'
+        SELECT * FROM variables WHERE name='Y' FOR SHARE;
+        SELECT value INTO varY FROM variables WHERE name='Y';
+
+        -- Y = Y - 1
+        SET varY = varY - 1;
+
+        -- UPDATE 'Y'
+        SELECT * FROM variables WHERE name='Y' FOR UPDATE;
+        UPDATE variables SET value=varY WHERE name='Y';
+
+        IF errorFlag THEN
+            ROLLBACK;
+        ELSE
+            COMMIT;
+        END IF;
+    UNTIL NOT errorFlag END REPEAT;
+END;
+
+
+-- Procedimiento F
+CREATE PROCEDURE procedimientoF()
+BEGIN
+    DECLARE varT INT;
+    DECLARE varF INT;
+    DECLARE varY INT;
+    DECLARE varZ INT;
+
+    DECLARE errorFlag BOOL DEFAULT 0;
+    DECLARE CONTINUE HANDLER FOR SQLEXCEPTION SET errorFlag=1;
+    DECLARE CONTINUE HANDLER FOR SQLWARNING SET errorFlag=1;
+
+    REPEAT
+        SET errorFlag = 0;
+        START TRANSACTION;
+
+        -- READ 'T'
+        SELECT * FROM variables WHERE name='T' FOR SHARE;
+        SELECT value INTO varT FROM variables WHERE name='T';
+
+        -- READ 'F'
+        SELECT * FROM variables WHERE name='F' FOR SHARE;
+        SELECT value INTO varF FROM variables WHERE name='F';
+
+        -- READ 'Y'
+        SELECT * FROM variables WHERE name='Y' FOR SHARE;
+        SELECT value INTO varY FROM variables WHERE name='Y';
+
+        -- T = T + Y
+        SET varT = varT + varY;
+
+        -- F = F + Y
+        SET varF = varF + varY;
+
+        -- UPDATE 'T' and 'F'
+        SELECT * FROM variables WHERE name='T' FOR UPDATE;
+        UPDATE variables SET value=varT WHERE name='T';
+
+        SELECT * FROM variables WHERE name='F' FOR UPDATE;
+        UPDATE variables SET value=varF WHERE name='F';
+
+        -- READ 'Z'
+        SELECT * FROM variables WHERE name='Z' FOR SHARE;
+        SELECT value INTO varZ FROM variables WHERE name='Z';
+
+        -- Z = Z - 1
+        SET varZ = varZ - 1;
+
+        -- UPDATE 'Z'
+        SELECT * FROM variables WHERE name='Z' FOR UPDATE;
+        UPDATE variables SET value=varZ WHERE name='Z';
+
+        IF errorFlag THEN
+            ROLLBACK;
+        ELSE
+            COMMIT;
+        END IF;
+    UNTIL NOT errorFlag END REPEAT;
+END;
+

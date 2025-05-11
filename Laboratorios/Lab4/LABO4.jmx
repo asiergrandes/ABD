@@ -1,0 +1,507 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jmeterTestPlan version="1.2" properties="5.0" jmeter="5.6.3">
+  <hashTree>
+    <TestPlan guiclass="TestPlanGui" testclass="TestPlan" testname="Plan de Pruebas">
+      <elementProp name="TestPlan.user_defined_variables" elementType="Arguments" guiclass="ArgumentsPanel" testclass="Arguments" testname="Variables definidas por el Usuario">
+        <collectionProp name="Arguments.arguments"/>
+      </elementProp>
+      <boolProp name="TestPlan.functional_mode">false</boolProp>
+      <boolProp name="TestPlan.serialize_threadgroups">false</boolProp>
+    </TestPlan>
+    <hashTree>
+      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="LABO4">
+        <intProp name="ThreadGroup.num_threads">1</intProp>
+        <intProp name="ThreadGroup.ramp_time">1</intProp>
+        <boolProp name="ThreadGroup.same_user_on_next_iteration">true</boolProp>
+        <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
+        <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="Controlador Bucle">
+          <stringProp name="LoopController.loops">1</stringProp>
+          <boolProp name="LoopController.continue_forever">false</boolProp>
+        </elementProp>
+      </ThreadGroup>
+      <hashTree>
+        <JDBCDataSource guiclass="TestBeanGUI" testclass="JDBCDataSource" testname="JDBC Connection Configuration">
+          <boolProp name="autocommit">true</boolProp>
+          <stringProp name="checkQuery"></stringProp>
+          <stringProp name="connectionAge">5000</stringProp>
+          <stringProp name="connectionProperties"></stringProp>
+          <stringProp name="dataSource">database</stringProp>
+          <stringProp name="dbUrl">jdbc:mysql://34.169.107.168:3306/concurrency?allowMultiQueries=true</stringProp>
+          <stringProp name="driver">com.mysql.jdbc.Driver</stringProp>
+          <stringProp name="initQuery"></stringProp>
+          <boolProp name="keepAlive">true</boolProp>
+          <stringProp name="password">dba-upvehu</stringProp>
+          <stringProp name="poolMax">0</stringProp>
+          <boolProp name="preinit">false</boolProp>
+          <stringProp name="timeout">10000</stringProp>
+          <stringProp name="transactionIsolation">DEFAULT</stringProp>
+          <stringProp name="trimInterval">60000</stringProp>
+          <stringProp name="username">concurrencyUser</stringProp>
+        </JDBCDataSource>
+        <hashTree/>
+        <com.blazemeter.jmeter.controller.ParallelSampler guiclass="com.blazemeter.jmeter.controller.ParallelControllerGui" testclass="com.blazemeter.jmeter.controller.ParallelSampler" testname="bzm - Parallel Controller">
+          <intProp name="MAX_THREAD_NUMBER">6</intProp>
+          <boolProp name="PARENT_SAMPLE">false</boolProp>
+          <boolProp name="LIMIT_MAX_THREAD_NUMBER">true</boolProp>
+        </com.blazemeter.jmeter.controller.ParallelSampler>
+        <hashTree>
+          <JDBCSampler guiclass="TestBeanGUI" testclass="JDBCSampler" testname="Apartado A">
+            <stringProp name="dataSource">database</stringProp>
+            <stringProp name="query">DROP PROCEDURE IF EXISTS procedimientoA;
+
+CREATE PROCEDURE procedimientoA()
+BEGIN
+#Parametros con los que vamos a trabajar
+DECLARE pX INT;
+DECLARE pT INT;
+DECLARE pA INT;
+DECLARE pY INT;
+
+#Estas son las variables del programa
+DECLARE FLAG BOOL DEFAULT 0;
+DECLARE CONTINUE HANDLER FOR SQLEXCEPTION SET FLAG=1;
+DECLARE CONTINUE HANDLER FOR SQLWARNING SET FLAG=1;
+
+#INICIAMOS EL BUCLE
+REPEAT
+	SET FLAG =0;
+	START TRANSACTION;
+    ##########################
+    #READ(X)
+	SELECT * FROM variables WHERE name=&apos;X&apos; FOR SHARE;
+	SELECT value INTO pX FROM variables WHERE name=&apos;X&apos;;
+	
+	#X=X+1
+	SELECT pX+1 INTO pX;
+	
+	#WRITE(X)
+	SELECT * FROM variables WHERE name=&apos;X&apos; FOR UPDATE;
+	UPDATE variables SET value=pX WHERE name=&apos;X&apos;;
+	
+	#READ(T)
+	SELECT * FROM variables WHERE name=&apos;T&apos; FOR SHARE;
+	SELECT value INTO pT FROM variables WHERE name=&apos;T&apos;;
+	
+	#READ(A)
+	SELECT * FROM variables WHERE name=&apos;A&apos; FOR SHARE;
+	SELECT value INTO pA FROM variables WHERE name=&apos;A&apos;;
+	
+	#READ(Y)
+	SELECT * FROM variables WHERE name=&apos;Y&apos; FOR SHARE;
+	SELECT value INTO pY FROM variables WHERE name=&apos;Y&apos;;
+	
+	#T=T+Y
+	SELECT pT+pY INTO pT;
+	
+	#A=A+Y
+	SELECT pA+pY INTO pA;
+	
+	#WRITE(T)
+	SELECT * FROM variables WHERE name=&apos;T&apos; FOR UPDATE;
+	UPDATE variables SET value=pT WHERE name=&apos;T&apos;;
+	
+	#WRITE(A)
+	SELECT * FROM variables WHERE name=&apos;A&apos; FOR UPDATE;
+	UPDATE variables SET value=pA WHERE name=&apos;A&apos;;
+    ##########################
+	IF FLAG THEN
+		ROLLBACK;
+	ELSE
+		COMMIT;
+	END IF;
+UNTIL NOT FLAG END REPEAT;
+END;
+
+
+DROP PROCEDURE IF EXISTS procedimientoB;
+
+CREATE PROCEDURE procedimientoB()
+BEGIN
+#Parametros con los que vamos a trabajar
+DECLARE pY INT;
+DECLARE pT INT;
+DECLARE pB INT;
+DECLARE pZ INT;
+
+#Estas son las variables del programa
+DECLARE FLAG BOOL DEFAULT 0;
+DECLARE CONTINUE HANDLER FOR SQLEXCEPTION SET FLAG=1;
+DECLARE CONTINUE HANDLER FOR SQLWARNING SET FLAG=1;
+
+#INICIAMOS EL BUCLE
+REPEAT
+	SET FLAG =0;
+	START TRANSACTION;
+    ##########################
+    #READ(Y)
+	SELECT * FROM variables WHERE name=&apos;Y&apos; FOR SHARE;
+	SELECT value INTO pY FROM variables WHERE name=&apos;Y&apos;;
+	
+	#Y=Y+1
+	SELECT pY +1 INTO pY;
+	
+	#WRITE(Y)
+	SELECT * FROM variables WHERE name=&apos;Y&apos; FOR UPDATE;
+	UPDATE variables SET value=pY WHERE name=&apos;Y&apos;;
+	
+	#READ(T)
+	SELECT * FROM variables WHERE name=&apos;T&apos; FOR SHARE;
+	SELECT value INTO pT FROM variables WHERE name=&apos;T&apos;;
+	
+	#READ(B)
+	SELECT * FROM variables WHERE name=&apos;B&apos; FOR SHARE;
+	SELECT value INTO pB FROM variables WHERE name=&apos;B&apos;;
+	
+	#READ(Z)
+	SELECT * FROM variables WHERE name=&apos;Z&apos; FOR SHARE;
+	SELECT value INTO pZ FROM variables WHERE name=&apos;Z&apos;;
+	
+	#T=T+Z
+	SELECT pT+pZ INTO pT;
+	
+	#B=B+Z
+	SELECT pB+pZ INTO pB;
+	
+	#WRITE(T)
+	SELECT * FROM variables WHERE name=&apos;T&apos; FOR UPDATE;
+	UPDATE variables SET value=pT WHERE name=&apos;T&apos;;
+	
+	#WRITE(B)
+	SELECT * FROM variables WHERE name=&apos;B&apos; FOR UPDATE;
+	UPDATE variables SET value=pB WHERE name=&apos;B&apos;;
+    ##########################
+	IF FLAG THEN
+		ROLLBACK;
+	ELSE
+		COMMIT;
+	END IF;
+UNTIL NOT FLAG END REPEAT;
+END;
+
+
+DROP PROCEDURE IF EXISTS procedimientoC;
+
+CREATE PROCEDURE procedimientoC()
+BEGIN
+#Parametros con los que vamos a trabajar
+DECLARE pZ INT;
+DECLARE pT INT;
+DECLARE pC INT;
+DECLARE pX INT;
+
+#Estas son las variables del programa
+DECLARE FLAG BOOL DEFAULT 0;
+DECLARE CONTINUE HANDLER FOR SQLEXCEPTION SET FLAG=1;
+DECLARE CONTINUE HANDLER FOR SQLWARNING SET FLAG=1;
+
+#INICIAMOS EL BUCLE
+REPEAT
+	SET FLAG =0;
+	START TRANSACTION;
+    ##########################
+    #READ(Z)
+	SELECT * FROM variables WHERE name=&apos;Z&apos; FOR SHARE;
+	SELECT value INTO pZ FROM variables WHERE name=&apos;Z&apos;;
+	
+	#Z=Z+1
+	SELECT pZ+1 INTO pZ;
+	
+	#WRITE(Z)
+	SELECT * FROM variables WHERE name=&apos;Z&apos; FOR UPDATE;
+	UPDATE variables SET value=pZ WHERE name=&apos;Z&apos;;
+	
+	#READ(T)
+	SELECT * FROM variables WHERE name=&apos;T&apos; FOR SHARE;
+	SELECT value INTO pT FROM variables WHERE name=&apos;T&apos;;
+	
+	#READ(C)
+	SELECT * FROM variables WHERE name=&apos;C&apos; FOR SHARE;
+	SELECT value INTO pC FROM variables WHERE name=&apos;C&apos;;
+	
+	#READ(X)
+	SELECT * FROM variables WHERE name=&apos;X&apos; FOR SHARE;
+	SELECT value INTO pX FROM variables WHERE name=&apos;X&apos;;
+	
+	#T=T+X
+	SELECT pT+pX INTO pT;
+	
+	#C=C+X
+	SELECT pC+pX INTO pC;
+	
+	#WRITE(T)
+	SELECT * FROM variables WHERE name=&apos;T&apos; FOR UPDATE;
+	UPDATE variables SET value=pT WHERE name=&apos;T&apos;;
+	
+	#WRITE(C)
+	SELECT * FROM variables WHERE name=&apos;C&apos; FOR UPDATE;
+	UPDATE variables SET value=pC WHERE name=&apos;C&apos;;
+    ##########################
+	IF FLAG THEN
+		ROLLBACK;
+	ELSE
+		COMMIT;
+	END IF;
+UNTIL NOT FLAG END REPEAT;
+END;
+</stringProp>
+            <stringProp name="queryArguments"></stringProp>
+            <stringProp name="queryArgumentsTypes"></stringProp>
+            <stringProp name="queryTimeout"></stringProp>
+            <stringProp name="queryType">Callable Statement</stringProp>
+            <stringProp name="resultSetHandler">Store as String</stringProp>
+            <stringProp name="resultSetMaxRows"></stringProp>
+            <stringProp name="resultVariable"></stringProp>
+            <stringProp name="variableNames"></stringProp>
+          </JDBCSampler>
+          <hashTree/>
+          <JDBCSampler guiclass="TestBeanGUI" testclass="JDBCSampler" testname="Apartado B">
+            <stringProp name="dataSource">database</stringProp>
+            <stringProp name="queryType">Callable Statement</stringProp>
+            <stringProp name="query">DROP PROCEDURE IF EXISTS procedimientoD;
+
+CREATE PROCEDURE procedimientoD()
+BEGIN
+#Parametros con los que vamos a trabajar
+DECLARE pT INT;
+DECLARE pD INT;
+DECLARE pZ INT;
+DECLARE pX INT;
+
+#Estas son las variables del programa
+DECLARE FLAG BOOL DEFAULT 0;
+DECLARE CONTINUE HANDLER FOR SQLEXCEPTION SET FLAG=1;
+DECLARE CONTINUE HANDLER FOR SQLWARNING SET FLAG=1;
+
+#INICIAMOS EL BUCLE
+REPEAT
+	SET FLAG =0;
+	START TRANSACTION;
+    ##########################
+	#READ(T)
+	SELECT * FROM variables WHERE name=&apos;T&apos; FOR SHARE;
+	SELECT value INTO pT FROM variables WHERE name=&apos;T&apos;;
+	
+	#READ(D)
+	SELECT * FROM variables WHERE name=&apos;D&apos; FOR SHARE;
+	SELECT value INTO pD FROM variables WHERE name=&apos;D&apos;;
+	
+	#READ(Z)
+	SELECT * FROM variables WHERE name=&apos;Z&apos; FOR SHARE;
+	SELECT value INTO pZ FROM variables WHERE name=&apos;Z&apos;;
+	
+	#T=T+Z
+	SELECT pT+pZ INTO pT;
+	
+	#D=D+Z 
+	SELECT pD+pZ INTO pD;
+	
+	#WRITE(T)
+	SELECT * FROM variables WHERE name=&apos;T&apos; FOR UPDATE;
+	UPDATE variables SET value=pT WHERE name=&apos;T&apos;;
+	
+	#WRITE(D)
+	SELECT * FROM variables WHERE name=&apos;D&apos; FOR UPDATE;
+	UPDATE variables SET value=pD WHERE name=&apos;D&apos;;
+	
+	#READ(X)
+	SELECT * FROM variables WHERE name=&apos;X&apos; FOR SHARE;
+	SELECT value INTO pX FROM variables WHERE name=&apos;X&apos;;
+	
+	#X=X-1
+	SELECT pX-1 INTO pX;
+	
+	#WRITE(X)
+	SELECT * FROM variables WHERE name=&apos;X&apos; FOR UPDATE;
+	UPDATE variables SET value=pX WHERE name=&apos;X&apos;;
+	##########################
+	IF FLAG THEN
+		ROLLBACK;
+	ELSE
+		COMMIT;
+	END IF;
+UNTIL NOT FLAG END REPEAT;
+END;
+
+
+DROP PROCEDURE IF EXISTS procedimientoE;
+
+CREATE PROCEDURE procedimientoE()
+BEGIN
+#Parametros con los que vamos a trabajar
+DECLARE pT INT;
+DECLARE pE INT;
+DECLARE pX INT;
+DECLARE pY INT;
+
+#Estas son las variables del programa
+DECLARE FLAG BOOL DEFAULT 0;
+DECLARE CONTINUE HANDLER FOR SQLEXCEPTION SET FLAG=1;
+DECLARE CONTINUE HANDLER FOR SQLWARNING SET FLAG=1;
+
+#INICIAMOS EL BUCLE
+REPEAT
+	SET FLAG =0;
+	START TRANSACTION;
+    ##########################
+	#READ(T)
+	SELECT * FROM variables WHERE name=&apos;T&apos; FOR SHARE;
+	SELECT value INTO pT FROM variables WHERE name=&apos;T&apos;;
+	
+	#READ(E)
+	SELECT * FROM variables WHERE name=&apos;E&apos; FOR SHARE;
+	SELECT value INTO pE FROM variables WHERE name=&apos;E&apos;;
+	
+	#READ(X)
+	SELECT * FROM variables WHERE name=&apos;X&apos; FOR SHARE;
+	SELECT value INTO pX FROM variables WHERE name=&apos;X&apos;;
+	
+	#T=T+X
+	SELECT pT+pX INTO pT;
+	
+	#E=E+X 
+	SELECT pE+pX INTO pE;
+	
+	#WRITE(T)
+	SELECT * FROM variables WHERE name=&apos;T&apos; FOR UPDATE;
+	UPDATE variables SET value=pT WHERE name=&apos;T&apos;;
+	
+	#WRITE(E)
+	SELECT * FROM variables WHERE name=&apos;E&apos; FOR UPDATE;
+	UPDATE variables SET value=pE WHERE name=&apos;E&apos;;
+	
+	#READ(Y)
+	SELECT * FROM variables WHERE name=&apos;Y&apos; FOR SHARE;
+	SELECT value INTO pY FROM variables WHERE name=&apos;Y&apos;;
+	
+	#Y=Y-1
+	SELECT pY-1 INTO pY;
+	
+	#WRITE(Y)
+	SELECT * FROM variables WHERE name=&apos;Y&apos; FOR UPDATE;
+	UPDATE variables SET value=pY WHERE name=&apos;Y&apos;;
+	##########################
+	IF FLAG THEN
+		ROLLBACK;
+	ELSE
+		COMMIT;
+	END IF;
+UNTIL NOT FLAG END REPEAT;
+END;
+
+
+DROP PROCEDURE IF EXISTS procedimientoF;
+
+CREATE PROCEDURE procedimientoF()
+BEGIN
+#Parametros con los que vamos a trabajar
+DECLARE pT INT;
+DECLARE pF INT;
+DECLARE pY INT;
+DECLARE pZ INT;
+
+#Estas son las variables del programa
+DECLARE FLAG BOOL DEFAULT 0;
+DECLARE CONTINUE HANDLER FOR SQLEXCEPTION SET FLAG=1;
+DECLARE CONTINUE HANDLER FOR SQLWARNING SET FLAG=1;
+
+#INICIAMOS EL BUCLE
+REPEAT
+	SET FLAG =0;
+	START TRANSACTION;
+    ##########################
+	#READ(T)
+	SELECT * FROM variables WHERE name=&apos;T&apos; FOR SHARE;
+	SELECT value INTO pT FROM variables WHERE name=&apos;T&apos;;
+	
+	#READ(F)
+	SELECT * FROM variables WHERE name=&apos;F&apos; FOR SHARE;
+	SELECT value INTO pF FROM variables WHERE name=&apos;F&apos;;
+	
+	#READ(Y)
+	SELECT * FROM variables WHERE name=&apos;Y&apos; FOR SHARE;
+	SELECT value INTO pY FROM variables WHERE name=&apos;Y&apos;;
+	
+	#T=T+Y
+	SELECT pT+pY INTO pT;
+	
+	#F=F+Y 
+	SELECT pF+pY INTO pF;
+	
+	#WRITE(T)
+	SELECT * FROM variables WHERE name=&apos;T&apos; FOR UPDATE;
+	UPDATE variables SET value=pT WHERE name=&apos;T&apos;;
+	
+	#WRITE(F)
+	SELECT * FROM variables WHERE name=&apos;F&apos; FOR UPDATE;
+	UPDATE variables SET value=pF WHERE name=&apos;F&apos;;
+	
+	#READ(Z)
+	SELECT * FROM variables WHERE name=&apos;Z&apos; FOR SHARE;
+	SELECT value INTO pZ FROM variables WHERE name=&apos;Z&apos;;
+	
+	#Z=Z-1
+	SELECT pZ-1 INTO pZ;
+	
+	#WRITE(Z)
+	SELECT * FROM variables WHERE name=&apos;Z&apos; FOR UPDATE;
+	UPDATE variables SET value=pZ WHERE name=&apos;Z&apos;;
+	##########################
+	IF FLAG THEN
+		ROLLBACK;
+	ELSE
+		COMMIT;
+	END IF;
+UNTIL NOT FLAG END REPEAT;
+END;
+</stringProp>
+            <stringProp name="queryArguments"></stringProp>
+            <stringProp name="queryArgumentsTypes"></stringProp>
+            <stringProp name="variableNames"></stringProp>
+            <stringProp name="resultVariable"></stringProp>
+            <stringProp name="queryTimeout"></stringProp>
+            <stringProp name="resultSetMaxRows"></stringProp>
+            <stringProp name="resultSetHandler">Store as String</stringProp>
+          </JDBCSampler>
+          <hashTree/>
+        </hashTree>
+        <ResultCollector guiclass="ViewResultsFullVisualizer" testclass="ResultCollector" testname="View Results Tree">
+          <boolProp name="ResultCollector.error_logging">false</boolProp>
+          <objProp>
+            <name>saveConfig</name>
+            <value class="SampleSaveConfiguration">
+              <time>true</time>
+              <latency>true</latency>
+              <timestamp>true</timestamp>
+              <success>true</success>
+              <label>true</label>
+              <code>true</code>
+              <message>true</message>
+              <threadName>true</threadName>
+              <dataType>true</dataType>
+              <encoding>false</encoding>
+              <assertions>true</assertions>
+              <subresults>true</subresults>
+              <responseData>false</responseData>
+              <samplerData>false</samplerData>
+              <xml>false</xml>
+              <fieldNames>true</fieldNames>
+              <responseHeaders>false</responseHeaders>
+              <requestHeaders>false</requestHeaders>
+              <responseDataOnError>false</responseDataOnError>
+              <saveAssertionResultsFailureMessage>true</saveAssertionResultsFailureMessage>
+              <assertionsResultsToSave>0</assertionsResultsToSave>
+              <bytes>true</bytes>
+              <sentBytes>true</sentBytes>
+              <url>true</url>
+              <threadCounts>true</threadCounts>
+              <idleTime>true</idleTime>
+              <connectTime>true</connectTime>
+            </value>
+          </objProp>
+          <stringProp name="filename"></stringProp>
+        </ResultCollector>
+        <hashTree/>
+      </hashTree>
+    </hashTree>
+  </hashTree>
+</jmeterTestPlan>

@@ -1,0 +1,7 @@
+PREFIX gip:<http://gipuzkoa.eus/resource/>
+PREFIX gip_prop:<http://gipuzkoa.eus/prop/>
+PREFIX dbpedia:<http://dbpedia.org/resource/>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+gip:Donostia gip_prop:parte_de dbpedia:Gipuzkoa;
+rdfs:label "San Sebastián"@es .

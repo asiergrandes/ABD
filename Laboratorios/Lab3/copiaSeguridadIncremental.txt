@@ -1,0 +1,80 @@
+1.
+
+#mostrar los ficheros que forman el log binario
+mysql> show binary logs;
++---------------+-----------+-----------+
+| Log_name      | File_size | Encrypted |
++---------------+-----------+-----------+
+| binlog.000001 |       507 | No        |
+| binlog.000002 |   2540707 | No        |
+| binlog.000003 |       181 | No        |
+| binlog.000004 |       158 | No        |
++---------------+-----------+-----------+
+4 rows in set (0.00 sec)
+
+
+2.
+
+#crear la copia de seguridad de la base de datos sakila
+~$ mysqldump -u root -p sakila > copiaSakila.sql
+
+
+3.
+
+#seleccionamos la bd
+mysql> use sakila;
+
+#añadir un nuevo actor
+mysql> insert into actor(first_name,last_name) values ("Harrison", "Ford");
+
+
+4.
+
+#mostrar fichero log binario en uso
+mysql> show binary log status;
++---------------+----------+--------------+------------------+-------------------+
+| File          | Position | Binlog_Do_DB | Binlog_Ignore_DB | Executed_Gtid_Set |
++---------------+----------+--------------+------------------+-------------------+
+| binlog.000004 |      466 |              |                  |                   |
++---------------+----------+--------------+------------------+-------------------+
+1 row in set (0.00 sec)
+
+
+5.
+
+#hacer copia del fichero en ./
+~$ sudo cp /var/lib/mysql/binlog.000004 ./
+
+
+6.
+
+#eliminar el directorio de la bd sakila
+~$ sudo rm -r /var/lib/mysql/sakila 
+
+
+7.
+
+#creamos la bd sakila para poder volcar la copia en ella
+mysql> create database sakila;
+
+#recuperar la bd
+~$ mysqldump -u root -p sakila < copiaSakila.sql 
+
+#dar permisos de lectura al binlog de home para que mysql pueda leerlo
+~$ sudo chmod +r ~/binlog.000004
+
+#volcar el binlog
+~$ mysqlbinlog binlog.000004 | mysql -u root -p
+
+
+8.
+
+#buscar el actor
+mysql> select * from actor where first_name="Harrison";
++----------+------------+-----------+---------------------+
+| actor_id | first_name | last_name | last_update         |
++----------+------------+-----------+---------------------+
+|      115 | HARRISON   | BALE      | 2006-02-15 04:34:33 |
+|      201 | Harrison   | Ford      | 2025-02-17 16:54:37 |
++----------+------------+-----------+---------------------+
+2 rows in set (0.00 sec)

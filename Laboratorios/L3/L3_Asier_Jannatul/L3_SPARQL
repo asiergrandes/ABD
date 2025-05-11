@@ -1,0 +1,4 @@
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+select * where {
+	?person owl:sameAs ?other_person .
+}

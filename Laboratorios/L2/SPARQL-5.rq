@@ -1,0 +1,14 @@
+PREFIX dcat: <http://www.w3.org/ns/dcat#>
+PREFIX gip: <http://gipuzkoa.eus/resource/>
+
+SELECT ?g ?s ?p ?o WHERE{
+    {
+        GRAPH ?g {
+        ?s dcat:theme "museos" .
+        }
+    }
+    UNION
+    {
+    	gip:aitor-labajo ?p ?o .
+    }
+}

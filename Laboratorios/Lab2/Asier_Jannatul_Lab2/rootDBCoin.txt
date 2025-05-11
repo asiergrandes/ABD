@@ -1,0 +1,61 @@
+CREATE DATABASE DBcoin;
+CREATE USER 'admDBcoin'@'%' identified by 'DBcoin2023';
+GRANT RELOAD ON *.* TO admDBcoin;
+
+1.
+GRANT CREATE ON DBcoin.* TO admDBcoin;
+
+2.
+Ya los tiene
+
+3.
+GRANT REFERENCES ON DBcoin.Owner TO admDBcoin;
+GRANT REFERENCES ON DBcoin.Coin TO admDBcoin;
+GRANT ALTER ON DBcoin.Transfer TO admDBcoin;
+GRANT ALTER ON DBcoin.Coin TO admDBcoin;
+
+4.
+GRANT INSERT ON DBcoin.Owner TO admDBcoin;
+
+5.
+Ya los tiene
+
+6.
+GRANT INSERT ON DBcoin.Coin TO admDBcoin;
+
+7.
+Ya los tiene
+
+8.
+GRANT INSERT ON DBcoin.Transfer TO admDBcoin;
+
+9.
+Ya los tiene
+
+10.
+GRANT UPDATE, SELECT ON DBcoin.Transfer TO admDBcoin;
+
+11.
+GRANT CREATE USER ON *.* TO admDBcoin;
+GRANT RELOAD ON *.* TO admDBcoin WITH GRANT OPTION;
+
+12.
+GRANT SELECT(oId, oName, oEmail), INSERT(oId, oEmail, oBalance), UPDATE(oId, oEmail, oBalance) ON DBcoin.Owner TO admDBcoin WITH GRANT OPTION;
+GRANT SELECT(tId, tReceiver, tCoin), INSERT(tId, tReceiver, tCoin), UPDATE(tSender, tReceiver, tDate) ON DBcoin.Transfer TO admDBcoin WITH GRANT OPTION;
+GRANT SELECT, INSERT, UPDATE(cId, cOwner, cUnits) ON DBcoin.Coin TO admDBcoin WITH GRANT OPTION;
+
+GRANT CREATE VIEW, CREATE ROUTINE ON DBcoin.* TO admDBcoin;
+GRANT EXECUTE ON DBcoin.* TO admDBcoin WITH GRANT OPTION;
+
+GRANT SELECT(oBalance) ON DBcoin.Owner TO admDBcoin WITH GRANT OPTION;
+GRANT SELECT ON DBcoin.Vista1 TO admDBcoin WITH GRANT OPTION;
+GRANT SELECT (tSender) ON DBcoin.Transfer TO admDBcoin WITH GRANT OPTION;
+GRANT SELECT ON DBcoin.Vista2 TO admDBcoin WITH GRANT OPTION;
+
+GRANT SELECT(oBalance), INSERT(oName), UPDATE(oName) ON DBcoin.Owner TO admDBcoin WITH GRANT OPTION;
+GRANT SELECT(tSender, tDate), INSERT(tSender), UPDATE(tId, tCoin) ON DBcoin.Transfer TO admDBcoin WITH GRANT OPTION;
+GRANT UPDATE(cValue) ON DBcoin.Coin TO admDBcoin WITH GRANT OPTION;
+GRANT SELECT(cId, cOwner) ON DBcoin.Coin TO admDBcoin WITH GRANT OPTION;
+
+GRANT SELECT ON DBcoin.Vista3 TO admDBcoin WITH GRANT OPTION;
+GRANT SELECT ON DBcoin.Vista4 TO admDBcoin WITH GRANT OPTION;

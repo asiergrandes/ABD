@@ -1,0 +1,423 @@
+<?xml version="1.0"?>
+<rdf:RDF xmlns="http://www.semanticweb.org/asier/ontologies/2025/3/untitled-ontology-3/"
+     xml:base="http://www.semanticweb.org/asier/ontologies/2025/3/untitled-ontology-3/"
+     xmlns:dc="http://purl.org/dc/elements/1.1/"
+     xmlns:drm="http://vocab.data.gov/def/drm#"
+     xmlns:owl="http://www.w3.org/2002/07/owl#"
+     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+     xmlns:xml="http://www.w3.org/XML/1998/namespace"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+     xmlns:foaf="http://xmlns.com/foaf/0.1/"
+     xmlns:prop="http://gipuzkoa.eus/prop/"
+     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+     xmlns:ontology="http://dbpedia.org/ontology/">
+    <owl:Ontology rdf:about="http://vocab.abd.ehu.eus/museoak">
+    </owl:Ontology>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Object Properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://gipuzkoa.eus/prop/bizilekua -->
+
+    <owl:ObjectProperty rdf:about="http://gipuzkoa.eus/prop/bizilekua">
+        <owl:propertyChainAxiom rdf:parseType="Collection">
+            <rdf:Description rdf:about="http://vocab.data.gov/def/drm#worksFor"/>
+            <rdf:Description rdf:about="http://gipuzkoa.eus/prop/kokalekua"/>
+        </owl:propertyChainAxiom>
+        <rdfs:comment>Al hacer el SuperPropertyOf (Chain) lo que ha ocurrido es que en las instancias de clase persona aparece como bizilekua el lugar de residencia de cada perosna y tambien aparece el lugar donde trabaja. Por ejemplo, si alguien vive en Bilbo y trabaja en un museo de Donosti, ahora aparece como que vive en Bilbo y Donosti.</rdfs:comment>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://gipuzkoa.eus/prop/kokalekua -->
+
+    <owl:ObjectProperty rdf:about="http://gipuzkoa.eus/prop/kokalekua"/>
+    
+
+
+    <!-- http://vocab.data.gov/def/drm#worksFor -->
+
+    <owl:ObjectProperty rdf:about="http://vocab.data.gov/def/drm#worksFor">
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#InverseFunctionalProperty"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Data properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://dbpedia.org/ontology/openingDate -->
+
+    <owl:DatatypeProperty rdf:about="http://dbpedia.org/ontology/openingDate"/>
+    
+
+
+    <!-- http://gipuzkoa.eus/prop/kopurua -->
+
+    <owl:DatatypeProperty rdf:about="http://gipuzkoa.eus/prop/kopurua"/>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Classes
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://vocab.abd.ehu.eus/museoak/Euskalplace -->
+
+    <owl:Class rdf:about="http://vocab.abd.ehu.eus/museoak/Euskalplace">
+        <owl:equivalentClass>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://gipuzkoa.eus/prop/kokalekua"/>
+                <owl:hasValue rdf:resource="http://vocab.abd.ehu.eus/museoak/Euskadi"/>
+            </owl:Restriction>
+        </owl:equivalentClass>
+        <rdfs:comment xml:lang="es">EL único individuo que aparece al aplicar la inferencia es BIlbo. Esto se debe a que no hemos asignado kokalekua como propiedad transitiva.</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://vocab.abd.ehu.eus/museoak/bilbotarLangilea -->
+
+    <owl:Class rdf:about="http://vocab.abd.ehu.eus/museoak/bilbotarLangilea">
+        <owl:equivalentClass>
+            <owl:Class>
+                <owl:intersectionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="http://xmlns.com/foaf/0.1/person"/>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="http://vocab.data.gov/def/drm#worksFor"/>
+                        <owl:someValuesFrom rdf:resource="http://dbpedia.org/ontology/museum"/>
+                    </owl:Restriction>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="http://gipuzkoa.eus/prop/bizilekua"/>
+                        <owl:hasValue rdf:resource="http://gipuzkoa.eus/resource/bilbo"/>
+                    </owl:Restriction>
+                </owl:intersectionOf>
+            </owl:Class>
+        </owl:equivalentClass>
+        <rdfs:comment xml:lang="es">La inferencia nos dice que los únicos trabajadores de Bilbo son eneko-aranguren, mikel-aranguren y miren-aranguren.</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://vocab.abd.ehu.eus/museoak/langilea -->
+
+    <owl:Class rdf:about="http://vocab.abd.ehu.eus/museoak/langilea">
+        <owl:equivalentClass>
+            <owl:Class>
+                <owl:intersectionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="http://xmlns.com/foaf/0.1/person"/>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="http://vocab.data.gov/def/drm#worksFor"/>
+                        <owl:someValuesFrom rdf:resource="http://dbpedia.org/ontology/museum"/>
+                    </owl:Restriction>
+                </owl:intersectionOf>
+            </owl:Class>
+        </owl:equivalentClass>
+        <rdfs:comment xml:lang="es">Todos los que eran de la clase personas y trabajan en un museo ahora son tambien de la clase &quot;trabajador&quot; y la clase &quot;trabajador&quot; se ha comvertido en una subclase de la clase persona</rdfs:comment>
+        <rdfs:label xml:lang="es">&quot;trabajador&quot;</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://vocab.abd.ehu.eus/museoak/trabajadorExplotado -->
+
+    <owl:Class rdf:about="http://vocab.abd.ehu.eus/museoak/trabajadorExplotado">
+        <owl:equivalentClass>
+            <owl:Class>
+                <owl:intersectionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="http://xmlns.com/foaf/0.1/person"/>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="http://vocab.data.gov/def/drm#worksFor"/>
+                        <owl:minQualifiedCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">2</owl:minQualifiedCardinality>
+                        <owl:onClass rdf:resource="http://dbpedia.org/ontology/museum"/>
+                    </owl:Restriction>
+                </owl:intersectionOf>
+            </owl:Class>
+        </owl:equivalentClass>
+        <rdfs:comment xml:lang="es">No detecta a aitor-labajo y mikel-aranguren como miembros de esta clase por el UNique Name Assumption, es decir, OWL asume que los museos diferentes en los que trabajan estas personas son la misma entidad pero con nombres diferentes. Hay que especificar que los museos en los que trabajan son diferentes, para ello vamos a la pestaña de Individuals y al seleccionar un museo, en la sección de Different Individuals agregamos el otro museo.</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://xmlns.com/foaf/0.1/person -->
+
+    <rdf:Description rdf:about="http://xmlns.com/foaf/0.1/person">
+        <rdfs:comment xml:lang="es">InverseFunctional en worksFor hace que, si una persona trabaja en el guggenheim y otra persona diferente trabaja en el guggenheim, entonces son la misma persona. Al hacer esto lo que ocurre es que ahora muchas personas son detectadas como una sola, por lo tanto tienen varios bizilekuak y varios workFor.
+
+Al hacer que todos de la clase persona sean distintos entre si genera una inconsistencia en la ontología. Porque no puedes decir que si dos trabajan en el mismo museo son la misma persona pero luego decir que cada instancia de clase persona es diferente una de la otra. Para evitar la inconsistencia se debe borrar uno de los dos axiomas.</rdfs:comment>
+    </rdf:Description>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Individuals
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://gipuzkoa.eus/resource/aitor-labajo -->
+
+    <rdf:Description rdf:about="http://gipuzkoa.eus/resource/aitor-labajo">
+        <rdf:type rdf:resource="http://xmlns.com/foaf/0.1/person"/>
+        <prop:bizilekua rdf:resource="http://gipuzkoa.eus/resource/eibar"/>
+        <drm:worksFor rdf:resource="http://gipuzkoa.eus/resource/gugenheim"/>
+        <drm:worksFor rdf:resource="http://gipuzkoa.eus/resource/san-telmo"/>
+        <foaf:name>Aitor Labajo</foaf:name>
+    </rdf:Description>
+    
+
+
+    <!-- http://gipuzkoa.eus/resource/ataun -->
+
+    <rdf:Description rdf:about="http://gipuzkoa.eus/resource/ataun">
+        <rdfs:label>Ataun</rdfs:label>
+    </rdf:Description>
+    
+
+
+    <!-- http://gipuzkoa.eus/resource/bilbo -->
+
+    <rdf:Description rdf:about="http://gipuzkoa.eus/resource/bilbo">
+        <prop:kokalekua rdf:resource="http://vocab.abd.ehu.eus/museoak/Euskadi"/>
+        <rdfs:label>Bilbo</rdfs:label>
+    </rdf:Description>
+    
+
+
+    <!-- http://gipuzkoa.eus/resource/donostia -->
+
+    <rdf:Description rdf:about="http://gipuzkoa.eus/resource/donostia">
+        <rdfs:label>Donostia</rdfs:label>
+    </rdf:Description>
+    
+
+
+    <!-- http://gipuzkoa.eus/resource/eneko-aranguren -->
+
+    <rdf:Description rdf:about="http://gipuzkoa.eus/resource/eneko-aranguren">
+        <rdf:type rdf:resource="http://xmlns.com/foaf/0.1/person"/>
+        <prop:bizilekua rdf:resource="http://gipuzkoa.eus/resource/bilbo"/>
+        <drm:worksFor rdf:resource="http://gipuzkoa.eus/resource/gugenheim"/>
+        <foaf:name>Eneko Aranguren</foaf:name>
+    </rdf:Description>
+    
+
+
+    <!-- http://gipuzkoa.eus/resource/gugenheim -->
+
+    <rdf:Description rdf:about="http://gipuzkoa.eus/resource/gugenheim">
+        <rdf:type rdf:resource="http://dbpedia.org/ontology/museum"/>
+        <owl:differentFrom rdf:resource="http://gipuzkoa.eus/resource/san-telmo"/>
+        <prop:kokalekua rdf:resource="http://gipuzkoa.eus/resource/bilbo"/>
+        <ontology:openingDate rdf:datatype="http://www.w3.org/2001/XMLSchema#date">25/11/1991</ontology:openingDate>
+        <prop:kopurua rdf:datatype="http://www.w3.org/2001/XMLSchema#int">36</prop:kopurua>
+        <dc:subject rdf:resource="http://gipuzkoa.eus/resource/artea"/>
+        <rdfs:label xml:lang="eu">Gugenheim</rdfs:label>
+    </rdf:Description>
+    
+
+
+    <!-- http://gipuzkoa.eus/resource/iratxe-gandiaga -->
+
+    <rdf:Description rdf:about="http://gipuzkoa.eus/resource/iratxe-gandiaga">
+        <rdf:type rdf:resource="http://xmlns.com/foaf/0.1/person"/>
+        <prop:bizilekua rdf:resource="http://gipuzkoa.eus/resource/eibar"/>
+        <drm:worksFor rdf:resource="http://gipuzkoa.eus/resource/gugenheim"/>
+        <foaf:name>Iratxe Gandiaga</foaf:name>
+    </rdf:Description>
+    
+
+
+    <!-- http://gipuzkoa.eus/resource/jm-barandiaran -->
+
+    <rdf:Description rdf:about="http://gipuzkoa.eus/resource/jm-barandiaran">
+        <rdf:type rdf:resource="http://dbpedia.org/ontology/museum"/>
+        <prop:kokalekua rdf:resource="http://gipuzkoa.eus/resource/ataun"/>
+        <ontology:openingDate rdf:datatype="http://www.w3.org/2001/XMLSchema#date">07/07/2015</ontology:openingDate>
+        <prop:kopurua rdf:datatype="http://www.w3.org/2001/XMLSchema#int">457</prop:kopurua>
+        <dc:subject rdf:resource="http://gipuzkoa.eus/resource/jose-miguel-barandiaran"/>
+        <rdfs:label xml:lang="eu">JM Barandiaran</rdfs:label>
+    </rdf:Description>
+    
+
+
+    <!-- http://gipuzkoa.eus/resource/jon-alfaro -->
+
+    <rdf:Description rdf:about="http://gipuzkoa.eus/resource/jon-alfaro">
+        <rdf:type rdf:resource="http://xmlns.com/foaf/0.1/person"/>
+        <prop:bizilekua rdf:resource="http://gipuzkoa.eus/resource/donostia"/>
+        <drm:worksFor rdf:resource="http://gipuzkoa.eus/resource/jm-barandiaran"/>
+        <foaf:name>Jon Alfaro</foaf:name>
+    </rdf:Description>
+    
+
+
+    <!-- http://gipuzkoa.eus/resource/juan-goytisolo -->
+
+    <rdf:Description rdf:about="http://gipuzkoa.eus/resource/juan-goytisolo">
+        <rdf:type rdf:resource="http://xmlns.com/foaf/0.1/person"/>
+        <drm:worksFor rdf:resource="http://gipuzkoa.eus/resource/gugenheim"/>
+        <foaf:name>Juan Goytisolo</foaf:name>
+    </rdf:Description>
+    
+
+
+    <!-- http://gipuzkoa.eus/resource/leire-bardaji -->
+
+    <rdf:Description rdf:about="http://gipuzkoa.eus/resource/leire-bardaji">
+        <rdf:type rdf:resource="http://xmlns.com/foaf/0.1/person"/>
+        <prop:bizilekua rdf:resource="http://gipuzkoa.eus/resource/ataun"/>
+        <drm:worksFor rdf:resource="http://gipuzkoa.eus/resource/jm-barandiaran"/>
+        <foaf:name>Leire Bardaji</foaf:name>
+    </rdf:Description>
+    
+
+
+    <!-- http://gipuzkoa.eus/resource/maialen-albizuri -->
+
+    <rdf:Description rdf:about="http://gipuzkoa.eus/resource/maialen-albizuri">
+        <rdf:type rdf:resource="http://xmlns.com/foaf/0.1/person"/>
+        <prop:bizilekua rdf:resource="http://gipuzkoa.eus/resource/durango"/>
+        <drm:worksFor rdf:resource="http://gipuzkoa.eus/resource/gugenheim"/>
+        <foaf:name>Maialen Albizuri</foaf:name>
+    </rdf:Description>
+    
+
+
+    <!-- http://gipuzkoa.eus/resource/mark-wilkinson -->
+
+    <rdf:Description rdf:about="http://gipuzkoa.eus/resource/mark-wilkinson">
+        <rdf:type rdf:resource="http://xmlns.com/foaf/0.1/person"/>
+        <prop:bizilekua rdf:resource="http://gipuzkoa.eus/resource/otawa"/>
+        <drm:worksFor rdf:resource="http://gipuzkoa.eus/resource/gugenheim"/>
+        <foaf:name>Mark Wilkinson</foaf:name>
+    </rdf:Description>
+    
+
+
+    <!-- http://gipuzkoa.eus/resource/michael-bush -->
+
+    <rdf:Description rdf:about="http://gipuzkoa.eus/resource/michael-bush">
+        <rdf:type rdf:resource="http://xmlns.com/foaf/0.1/person"/>
+        <prop:bizilekua rdf:resource="http://gipuzkoa.eus/resource/boston"/>
+        <drm:worksFor rdf:resource="http://gipuzkoa.eus/resource/gugenheim"/>
+        <foaf:name>Michael Bush</foaf:name>
+    </rdf:Description>
+    
+
+
+    <!-- http://gipuzkoa.eus/resource/mikel-aranguren -->
+
+    <rdf:Description rdf:about="http://gipuzkoa.eus/resource/mikel-aranguren">
+        <rdf:type rdf:resource="http://xmlns.com/foaf/0.1/person"/>
+        <prop:bizilekua rdf:resource="http://gipuzkoa.eus/resource/bilbo"/>
+        <drm:worksFor rdf:resource="http://gipuzkoa.eus/resource/gugenheim"/>
+        <drm:worksFor rdf:resource="http://gipuzkoa.eus/resource/jm-barandiaran"/>
+        <drm:worksFor rdf:resource="http://gipuzkoa.eus/resource/san-telmo"/>
+        <foaf:name>Mikel Aranguren</foaf:name>
+    </rdf:Description>
+    
+
+
+    <!-- http://gipuzkoa.eus/resource/miren-aranguren -->
+
+    <rdf:Description rdf:about="http://gipuzkoa.eus/resource/miren-aranguren">
+        <rdf:type rdf:resource="http://xmlns.com/foaf/0.1/person"/>
+        <prop:bizilekua rdf:resource="http://gipuzkoa.eus/resource/bilbo"/>
+        <drm:worksFor rdf:resource="http://gipuzkoa.eus/resource/gugenheim"/>
+        <foaf:name>Miren Aranguren</foaf:name>
+    </rdf:Description>
+    
+
+
+    <!-- http://gipuzkoa.eus/resource/san-telmo -->
+
+    <rdf:Description rdf:about="http://gipuzkoa.eus/resource/san-telmo">
+        <rdf:type rdf:resource="http://dbpedia.org/ontology/museum"/>
+        <prop:kokalekua rdf:resource="http://gipuzkoa.eus/resource/donostia"/>
+        <ontology:openingDate rdf:datatype="http://www.w3.org/2001/XMLSchema#date">24/10/2011</ontology:openingDate>
+        <prop:kopurua rdf:datatype="http://www.w3.org/2001/XMLSchema#int">1256</prop:kopurua>
+        <dc:subject rdf:resource="http://gipuzkoa.eus/resource/kultura"/>
+        <rdfs:label xml:lang="eu">San Telmo</rdfs:label>
+    </rdf:Description>
+    
+
+
+    <!-- http://gipuzkoa.eus/resource/soledad-barroso -->
+
+    <rdf:Description rdf:about="http://gipuzkoa.eus/resource/soledad-barroso">
+        <rdf:type rdf:resource="http://xmlns.com/foaf/0.1/person"/>
+        <prop:bizilekua rdf:resource="http://gipuzkoa.eus/resource/paris"/>
+        <drm:worksFor rdf:resource="http://gipuzkoa.eus/resource/gugenheim"/>
+        <foaf:name>Soledad Barroso</foaf:name>
+    </rdf:Description>
+    
+
+
+    <!-- http://vocab.abd.ehu.eus/museoak/Euskadi -->
+
+    <owl:NamedIndividual rdf:about="http://vocab.abd.ehu.eus/museoak/Euskadi"/>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // General axioms
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    <rdf:Description>
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#AllDifferent"/>
+        <owl:distinctMembers rdf:parseType="Collection">
+            <rdf:Description rdf:about="http://gipuzkoa.eus/resource/aitor-labajo"/>
+            <rdf:Description rdf:about="http://gipuzkoa.eus/resource/eneko-aranguren"/>
+            <rdf:Description rdf:about="http://gipuzkoa.eus/resource/iratxe-gandiaga"/>
+            <rdf:Description rdf:about="http://gipuzkoa.eus/resource/jon-alfaro"/>
+            <rdf:Description rdf:about="http://gipuzkoa.eus/resource/juan-goytisolo"/>
+            <rdf:Description rdf:about="http://gipuzkoa.eus/resource/leire-bardaji"/>
+            <rdf:Description rdf:about="http://gipuzkoa.eus/resource/maialen-albizuri"/>
+            <rdf:Description rdf:about="http://gipuzkoa.eus/resource/mark-wilkinson"/>
+            <rdf:Description rdf:about="http://gipuzkoa.eus/resource/michael-bush"/>
+            <rdf:Description rdf:about="http://gipuzkoa.eus/resource/mikel-aranguren"/>
+            <rdf:Description rdf:about="http://gipuzkoa.eus/resource/miren-aranguren"/>
+            <rdf:Description rdf:about="http://gipuzkoa.eus/resource/soledad-barroso"/>
+        </owl:distinctMembers>
+    </rdf:Description>
+</rdf:RDF>
+
+
+
+<!-- Generated by the OWL API (version 4.5.29.2024-05-13T12:11:03Z) https://github.com/owlcs/owlapi -->
+

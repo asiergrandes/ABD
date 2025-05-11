@@ -1,0 +1,110 @@
+1.
+CREATE TABLE Transfer(tId int, tSender int, tReceiver int, tCoin int, tDate date, PRIMARY KEY(tId));
+
+2.
+CREATE TABLE Owner(oId int, oName text, oEmail text, oBalance int, PRIMARY KEY(oId));
+CREATE TABLE Coin(cId int, cOwner int, cUnits int, cValue int, PRIMARY KEY(cId));
+
+3.
+ALTER TABLE Transfer ADD FOREIGN KEY (tSender) REFERENCES Owner(oId);
+ALTER TABLE Transfer ADD FOREIGN KEY (tReceiver) REFERENCES Owner(oId);
+ALTER TABLE Transfer ADD FOREIGN KEY (tCoin) REFERENCES Coin(cId);
+ALTER TABLE Coin ADD FOREIGN KEY (cOwner) REFERENCES Owner(oId);
+
+4.
+INSERT INTO Owner VALUES (1, 'Ripple', 'ripple@ripple.com', 1);
+
+5.
+INSERT INTO Owner VALUES (2, 'Ethereum', 'ethereum@ethereum.com', 1);
+
+6.
+INSERT INTO Coin VALUES (1, 1, 100, 1);
+
+7.
+INSERT INTO Coin VALUES (2, 2, 100, 1);
+
+8.
+INSERT INTO Transfer VALUES (1, 1, 2, 1, '2021/02/01');
+
+9.
+INSERT INTO Transfer VALUES (2, 2, 1, 2, '2021/02/02');
+
+10.
+UPDATE Transfer SET tDate='2021/02/03' WHERE tDate='2021/02/02';
+
+11.
+CREATE USER 'MIser1'@'%' identified by 'DBcoin2023';
+GRANT RELOAD ON *.* TO MIser1;
+CREATE USER 'MIser2'@'%' identified by 'DBcoin2023';
+GRANT RELOAD ON *.* TO MIser2;
+
+12.
+GRANT SELECT(oId, oName, oEmail), INSERT(oId, oEmail, oBalance), UPDATE(oId, oEmail, oBalance) ON DBcoin.Owner TO MIser1;
+GRANT SELECT(tId, tReceiver, tCoin), INSERT(tId, tReceiver, tCoin), UPDATE(tSender, tReceiver, tDate) ON DBcoin.Transfer TO MIser1;
+GRANT SELECT, INSERT, UPDATE(cId, cOwner, cUnits) ON DBcoin.Coin TO MIser1;
+
+CREATE VIEW Vista1 AS SELECT oId, oName from Owner WHERE oBalance<0;
+GRANT SELECT ON DBcoin.Vista1 TO MIser1;
+CREATE VIEW Vista2 AS SELECT t.tId as "Transfer ID", o1.oName as Sender, o2.oName as Receiver FROM Transfer t JOIN Owner o1 ON t.tSender=o1.oId JOIN Owner o2 ON t.tReceiver=o2.oId;
+GRANT SELECT ON DBcoin.Vista2 TO MIser1;
+
+DELIMITER //
+
+CREATE PROCEDURE Rutina1(IN Id INT, IN Balance INT)
+BEGIN
+    DECLARE current_balance INT;
+    SELECT oBalance INTO current_balance FROM Owner WHERE oId = Id;
+    IF (Balance <= current_balance * 1.1) THEN
+        UPDATE Owner SET oBalance = Balance WHERE oId = Id;
+    END IF;
+END //
+
+DELIMITER ;
+
+GRANT EXECUTE ON PROCEDURE DBcoin.Rutina1 TO MIser1;
+CALL Rutina1(1, 1000);
+
+DELIMITER //
+
+CREATE PROCEDURE Rutina2(IN Id INT, IN Balance INT)
+BEGIN
+    UPDATE Owner SET oBalance=Balance WHERE oId=Id;
+END //
+
+DELIMITER ;
+
+GRANT EXECUTE ON PROCEDURE DBcoin.Rutina2 TO MIser1;
+CALL Rutina2(1, 1000);
+
+GRANT SELECT(oId, oEmail, oBalance), INSERT(oId, oName), UPDATE(oId, oName) ON DBcoin.Owner TO MIser2;
+GRANT SELECT(tId, tSender, tReceiver, tDAte), INSERT(tId, tSender, tReceiver), UPDATE ON DBcoin.Transfer TO MIser2;
+GRANT SELECT(cUnits, cValue), INSERT(cOwner, cValue), UPDATE(cUnits, cValue) ON DBcoin.Coin TO MIser2;
+
+CREATE VIEW Vista3 AS SELECT cId, cOwner, cValue FROM Coin;
+GRANT SELECT ON DBcoin.Vista3 TO MIser2;
+CREATE VIEW Vista4 AS SELECT tId, tSender, tReceiver from Transfer WHERE YEAR(tDate)=2020;
+GRANT SELECT ON DBcoin.Vista4 TO MIser2;
+
+DELIMITER //
+
+CREATE PROCEDURE Rutina3(IN Id INT, IN Units INT)
+BEGIN
+    UPDATE Coin SET cUnits=Units WHERE cId=Id;
+END //
+
+DELIMITER ;
+
+GRANT EXECUTE ON PROCEDURE DBcoin.Rutina3 TO MIser2;
+CALL Rutina3(1,4);
+
+DELIMITER //
+
+CREATE PROCEDURE Rutina4(IN Id INT, IN Units INT)
+BEGIN
+    UPDATE Coin SET cUnits=Units WHERE cId=Id AND cValue<5;
+END //
+
+DELIMITER ;
+
+GRANT EXECUTE ON PROCEDURE DBcoin.Rutina4 TO MIser2;
+CALL Rutina4(1, 200);

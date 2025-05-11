@@ -1,0 +1,23 @@
+@prefix : <http://example.com/ns#> .
+@prefix schema: <http://schema.org/> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:luis89 a :User ;
+    schema:name "Luis" ;
+    schema:gender "Other" .  #Valor no permitido para género
+
+:marta a :User ;
+    schema:gender schema:Female ;
+    schema:birthDate "1988-04-30"^^xsd:date .  #Falta el nombre
+
+:raul a :User ;
+    schema:name "Raúl Pérez" ;
+    schema:gender schema:Male ;
+    schema:birthDate "no-es-fecha"^^xsd:string .  #Fecha con tipo incorrecto
+
+:juan123 a :User ;
+    schema:name "Juan Pérez" ;
+    schema:gender "Male" ;
+    schema:birthDate "2000-05-05"^^xsd:date ;
+    schema:knows "no-es-iri" .  #Debe ser un IRI
+

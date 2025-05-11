@@ -1,0 +1,15 @@
+@prefix : <http://example.com/ns#> .
+@prefix schema: <http://schema.org/> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:jannatul123 a :User ;
+    schema:name "Jannatul Ferdous" ;
+    schema:gender "Female" ;
+    schema:birthDate "2004-06-15"^^xsd:date ;
+    schema:knows :bob456 .
+
+:asier123 a :User ;
+    schema:name "Asier Grandes" ;
+    schema:gender schema:Male ;
+    schema:birthDate "2004-09-03"^^xsd:date .
+

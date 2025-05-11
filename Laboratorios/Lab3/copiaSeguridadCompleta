@@ -1,0 +1,51 @@
+1.
+#copia de seguridad completa de mysql 
+~$ mysqldump -u root -p --all-databases > copiaCompleta.sql
+
+2.
+#borrar la carpeta de datos
+~$ sudo rm -rf /var/lib/mysql
+
+#reinciar el servicio mysql
+~$ sudo service mysql restart
+
+3.
+#detener proceso de apt
+~$ ps aux | grep apt
+~$ sudo kill -9 2567
+
+#forzar la eliminacion de mysql
+~$ sudo apt-get remove --purge mysql-server mysql-client mysql-common mysql-community-server -y
+~$ sudo apt-get autoremove -y
+~$ sudo apt-get autoclean
+
+#reiniciar sistema
+~$ sudo reboot
+
+#reinstalar mysql
+~$ sudo apt-get update
+~$ sudo apt-get install mysql-server -y
+~$ sudo systemctl start mysql
+
+4.
+#restaurar las bases de datos 
+~$ mysql -u root -p < copiaCompleta.sql 
+
+#comprobar que esten todos los datos correctos
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| BDTransac          |
+| DBCoin             |
+| information_schema |
+| mysql              |
+| performance_schema |
+| phpmyadmin         |
+| sakila             |
+| sys                |
+| teoria             |
++--------------------+
+9 rows in set (0.00 sec)
+
+

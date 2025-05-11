@@ -1,0 +1,10 @@
+PREFIX gip: <http://gipuzkoa.eus/resource/>
+PREFIX gip_prop: <http://gipuzkoa.eus/prop/>
+PREFIX gov: <http://vocab.data.gov/def/drm#>
+
+select ?museoa ?kokalekua
+
+where {
+	gip:aitor-labajo gov:worksFor ?museoa .
+    ?museoa gip_prop:kokalekua ?kokalekua .
+}

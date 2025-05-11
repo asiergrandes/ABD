@@ -1,0 +1,45 @@
+@prefix : <http://example.com/rugby#> .
+@prefix schema: <http://schema.org/> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:England a :Team ;
+    schema:name "England" .
+
+:France a :Team ;
+    schema:name "France" .
+
+:Ireland a :Team ;
+    schema:name "Ireland" .
+
+:Italy a :Team ;
+    schema:name "Italy" .
+
+:Scotland a :Team ;
+    schema:name "Scotland" .
+
+:Wales a :Team ;
+    schema:name "Wales" .
+
+:SixNations2025 a :Tournament ;
+    schema:name "Six Nations 2025" ;
+    schema:startDate "2025-02-01"^^xsd:date ;
+    schema:endDate "2025-03-15"^^xsd:date ;
+    :hasTeam :England, :France, :Ireland, :Italy, :Scotland, :Wales .
+
+:Match1 a :Match ;
+    schema:date "2025-02-01"^^xsd:date ;
+    :homeTeam :England ;
+    :awayTeam :France ;
+    :tournament :SixNations2025 .
+
+:Match2 a :Match ;
+    schema:date "2025-02-02"^^xsd:date ;
+    :homeTeam :Ireland ;
+    :awayTeam :Italy ;
+    :tournament :SixNations2025 .
+
+:Match3 a :Match ;
+    schema:date "2025-02-03"^^xsd:date ;
+    :homeTeam :Scotland ;
+    :awayTeam :Wales ;
+    :tournament :SixNations2025 .

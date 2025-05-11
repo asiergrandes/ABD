@@ -1,0 +1,202 @@
+@prefix ej: <http://example.org/person#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+# Persona 1
+ej:1 a ej:Persona ;
+    ej:tieneNombre ej:nombre_Juan ;
+    ej:tieneApellido ej:apellido_Perez ;
+    ej:tieneEdad ej:edad_28 ;
+    ej:tieneCiudad ej:ciudad_BuenosAires ;
+    ej:tienePais ej:pais_Argentina ;
+    ej:tieneProfesion ej:profesion_Ingeniero ;
+    ej:tieneSalario ej:salario_75000 .
+
+ej:nombre_Juan a ej:Nombre ; rdfs:label "Juan" .
+ej:apellido_Perez a ej:Apellido ; rdfs:label "Perez" .
+ej:edad_28 a ej:Edad ; rdfs:label "28" .
+ej:ciudad_BuenosAires a ej:Ciudad ; rdfs:label "Buenos Aires" .
+ej:pais_Argentina a ej:Pais ; rdfs:label "Argentina" .
+ej:profesion_Ingeniero a ej:Profesion ; rdfs:label "Ingeniero" .
+ej:salario_75000 a ej:Salario ; rdfs:label "75000" .
+
+# Persona 2
+ej:2 a ej:Persona ;
+    ej:tieneNombre ej:nombre_Maria ;
+    ej:tieneApellido ej:apellido_Gomez ;
+    ej:tieneEdad ej:edad_34 ;
+    ej:tieneCiudad ej:ciudad_Madrid ;
+    ej:tienePais ej:pais_Espana ;
+    ej:tieneProfesion ej:profesion_Doctora ;
+    ej:tieneSalario ej:salario_90000 .
+
+ej:nombre_Maria a ej:Nombre ; rdfs:label "Maria" .
+ej:apellido_Gomez a ej:Apellido ; rdfs:label "Gomez" .
+ej:edad_34 a ej:Edad ; rdfs:label "34" .
+ej:ciudad_Madrid a ej:Ciudad ; rdfs:label "Madrid" .
+ej:pais_Espana a ej:Pais ; rdfs:label "España" .
+ej:profesion_Doctora a ej:Profesion ; rdfs:label "Doctora" .
+ej:salario_90000 a ej:Salario ; rdfs:label "90000" .
+
+# Persona 3
+ej:3 a ej:Persona ;
+    ej:tieneNombre ej:nombre_John ;
+    ej:tieneApellido ej:apellido_Smith ;
+    ej:tieneEdad ej:edad_45 ;
+    ej:tieneCiudad ej:ciudad_NuevaYork ;
+    ej:tienePais ej:pais_EEUU ;
+    ej:tieneProfesion ej:profesion_Abogado ;
+    ej:tieneSalario ej:salario_110000 .
+
+ej:nombre_John a ej:Nombre ; rdfs:label "John" .
+ej:apellido_Smith a ej:Apellido ; rdfs:label "Smith" .
+ej:edad_45 a ej:Edad ; rdfs:label "45" .
+ej:ciudad_NuevaYork a ej:Ciudad ; rdfs:label "Nueva York" .
+ej:pais_EEUU a ej:Pais ; rdfs:label "EEUU" .
+ej:profesion_Abogado a ej:Profesion ; rdfs:label "Abogado" .
+ej:salario_110000 a ej:Salario ; rdfs:label "110000" .
+
+# Persona 4
+ej:4 a ej:Persona ;
+    ej:tieneNombre ej:nombre_Lisa ;
+    ej:tieneApellido ej:apellido_Wong ;
+    ej:tieneEdad ej:edad_29 ;
+    ej:tieneCiudad ej:ciudad_Tokio ;
+    ej:tienePais ej:pais_Japon ;
+    ej:tieneProfesion ej:profesion_Disenadora ;
+    ej:tieneSalario ej:salario_68000 .
+
+ej:nombre_Lisa a ej:Nombre ; rdfs:label "Lisa" .
+ej:apellido_Wong a ej:Apellido ; rdfs:label "Wong" .
+ej:edad_29 a ej:Edad ; rdfs:label "29" .
+ej:ciudad_Tokio a ej:Ciudad ; rdfs:label "Tokio" .
+ej:pais_Japon a ej:Pais ; rdfs:label "Japón" .
+ej:profesion_Disenadora a ej:Profesion ; rdfs:label "Diseñadora" .
+ej:salario_68000 a ej:Salario ; rdfs:label "68000" .
+
+# Persona 5
+ej:5 a ej:Persona ;
+    ej:tieneNombre ej:nombre_Carlos ;
+    ej:tieneApellido ej:apellido_Santos ;
+    ej:tieneEdad ej:edad_40 ;
+    ej:tieneCiudad ej:ciudad_SaoPaulo ;
+    ej:tienePais ej:pais_Brasil ;
+    ej:tieneProfesion ej:profesion_Arquitecto ;
+    ej:tieneSalario ej:salario_82000 .
+
+ej:nombre_Carlos a ej:Nombre ; rdfs:label "Carlos" .
+ej:apellido_Santos a ej:Apellido ; rdfs:label "Santos" .
+ej:edad_40 a ej:Edad ; rdfs:label "40" .
+ej:ciudad_SaoPaulo a ej:Ciudad ; rdfs:label "São Paulo" .
+ej:pais_Brasil a ej:Pais ; rdfs:label "Brasil" .
+ej:profesion_Arquitecto a ej:Profesion ; rdfs:label "Arquitecto" .
+ej:salario_82000 a ej:Salario ; rdfs:label "82000" .
+
+# Persona 6
+ej:6 a ej:Persona ;
+    ej:tieneNombre ej:nombre_Sophie ;
+    ej:tieneApellido ej:apellido_Dubois ;
+    ej:tieneEdad ej:edad_27 ;
+    ej:tieneCiudad ej:ciudad_Paris ;
+    ej:tienePais ej:pais_Francia ;
+    ej:tieneProfesion ej:profesion_Profesora ;
+    ej:tieneSalario ej:salario_48000 .
+
+ej:nombre_Sophie a ej:Nombre ; rdfs:label "Sophie" .
+ej:apellido_Dubois a ej:Apellido ; rdfs:label "Dubois" .
+ej:edad_27 a ej:Edad ; rdfs:label "27" .
+ej:ciudad_Paris a ej:Ciudad ; rdfs:label "Paris" .
+ej:pais_Francia a ej:Pais ; rdfs:label "Francia" .
+ej:profesion_Profesora a ej:Profesion ; rdfs:label "Profesora" .
+ej:salario_48000 a ej:Salario ; rdfs:label "48000" .
+
+# Persona 7
+ej:7 a ej:Persona ;
+    ej:tieneNombre ej:nombre_Ahmed ;
+    ej:tieneApellido ej:apellido_Khan ;
+    ej:tieneEdad ej:edad_33 ;
+    ej:tieneCiudad ej:ciudad_Dubai ;
+    ej:tienePais ej:pais_Emiratos ;
+    ej:tieneProfesion ej:profesion_Ingeniero ;
+    ej:tieneSalario ej:salario_95000 .
+
+ej:nombre_Ahmed a ej:Nombre ; rdfs:label "Ahmed" .
+ej:apellido_Khan a ej:Apellido ; rdfs:label "Khan" .
+ej:edad_33 a ej:Edad ; rdfs:label "33" .
+ej:ciudad_Dubai a ej:Ciudad ; rdfs:label "Dubai" .
+ej:pais_Emiratos a ej:Pais ; rdfs:label "Emiratos Árabes" .
+ej:profesion_Ingeniero a ej:Profesion ; rdfs:label "Ingeniero" .
+ej:salario_95000 a ej:Salario ; rdfs:label "95000" .
+
+# Persona 8
+ej:8 a ej:Persona ;
+    ej:tieneNombre ej:nombre_Emma ;
+    ej:tieneApellido ej:apellido_Johnson ;
+    ej:tieneEdad ej:edad_31 ;
+    ej:tieneCiudad ej:ciudad_Londres ;
+    ej:tienePais ej:pais_ReinoUnido ;
+    ej:tieneProfesion ej:profesion_Marketing ;
+    ej:tieneSalario ej:salario_60000 .
+
+ej:nombre_Emma a ej:Nombre ; rdfs:label "Emma" .
+ej:apellido_Johnson a ej:Apellido ; rdfs:label "Johnson" .
+ej:edad_31 a ej:Edad ; rdfs:label "31" .
+ej:ciudad_Londres a ej:Ciudad ; rdfs:label "Londres" .
+ej:pais_ReinoUnido a ej:Pais ; rdfs:label "Reino Unido" .
+ej:profesion_Marketing a ej:Profesion ; rdfs:label "Marketing" .
+ej:salario_60000 a ej:Salario ; rdfs:label "60000" .
+
+# Persona 9
+ej:9 a ej:Persona ;
+    ej:tieneNombre ej:nombre_Luis ;
+    ej:tieneApellido ej:apellido_Garcia ;
+    ej:tieneEdad ej:edad_38 ;
+    ej:tieneCiudad ej:ciudad_MexicoDF ;
+    ej:tienePais ej:pais_Mexico ;
+    ej:tieneProfesion ej:profesion_Contador ;
+    ej:tieneSalario ej:salario_58000 .
+
+ej:nombre_Luis a ej:Nombre ; rdfs:label "Luis" .
+ej:apellido_Garcia a ej:Apellido ; rdfs:label "Garcia" .
+ej:edad_38 a ej:Edad ; rdfs:label "38" .
+ej:ciudad_MexicoDF a ej:Ciudad ; rdfs:label "Mexico DF" .
+ej:pais_Mexico a ej:Pais ; rdfs:label "México" .
+ej:profesion_Contador a ej:Profesion ; rdfs:label "Contador" .
+ej:salario_58000 a ej:Salario ; rdfs:label "58000" .
+
+# Persona 10
+ej:10 a ej:Persona ;
+    ej:tieneNombre ej:nombre_Yuki ;
+    ej:tieneApellido ej:apellido_Tanaka ;
+    ej:tieneEdad ej:edad_26 ;
+    ej:tieneCiudad ej:ciudad_Osaka ;
+    ej:tienePais ej:pais_Japon ;
+    ej:tieneProfesion ej:profesion_Programadora ;
+    ej:tieneSalario ej:salario_72000 .
+
+ej:nombre_Yuki a ej:Nombre ; rdfs:label "Yuki" .
+ej:apellido_Tanaka a ej:Apellido ; rdfs:label "Tanaka" .
+ej:edad_26 a ej:Edad ; rdfs:label "26" .
+ej:ciudad_Osaka a ej:Ciudad ; rdfs:label "Osaka" .
+ej:pais_Japon a ej:Pais ; rdfs:label "Japón" .
+ej:profesion_Programadora a ej:Profesion ; rdfs:label "Programadora" .
+ej:salario_72000 a ej:Salario ; rdfs:label "72000" .
+
+# Persona 11
+ej:11 a ej:Persona ;
+    ej:tieneNombre ej:nombre_Mikel ;
+    ej:tieneApellido ej:apellido_Aranguren ;
+    ej:tieneEdad ej:edad_45 ;
+    ej:tieneCiudad ej:ciudad_Bilbo ;
+    ej:tienePais ej:pais_Euskadi ;
+    ej:tieneProfesion ej:profesion_Profesor ;
+    ej:tieneSalario ej:salario_0 .
+
+ej:nombre_Mikel a ej:Nombre ; rdfs:label "Mikel" .
+ej:apellido_Aranguren a ej:Apellido ; rdfs:label "Aranguren" .
+ej:edad_45 a ej:Edad ; rdfs:label "45" .
+ej:ciudad_Bilbo a ej:Ciudad ; rdfs:label "Bilbo" .
+ej:pais_Euskadi a ej:Pais ; rdfs:label "Euskadi" .
+ej:profesion_Profesor a ej:Profesion ; rdfs:label "Profesor" .
+ej:salario_0 a ej:Salario ; rdfs:label "0" .
+

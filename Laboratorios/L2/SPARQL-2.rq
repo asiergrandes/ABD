@@ -1,0 +1,14 @@
+PREFIX foaf: <http://xmlns.com/foaf/0.1/>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX gip_prop: <http://gipuzkoa.eus/prop/>
+
+select ?museoa ?langile_kop ?langile ?izena
+
+where {
+    {?museoa gip_prop:kopurua ?langile_kop .
+        FILTER (?langile_kop > "800"^^xsd:int)}
+    UNION{
+        ?langile foaf:name ?izena .
+        FILTER regex(?izena, 'Mi.*')
+    }
+}

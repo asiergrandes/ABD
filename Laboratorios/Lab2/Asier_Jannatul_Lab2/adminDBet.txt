@@ -1,0 +1,105 @@
+1.
+CREATE TABLE Bet(bId int, bGambler int, bEvent int, bAmount int, bResult text, PRIMARY KEY(bId));
+
+2.
+CREATE TABLE Gambler(gId int, gName text, gEmail text, gCredit int, PRIMARY KEY(gId));
+CREATE TABLE Event(eId int, eName text, eDate date, eResult text, PRIMARY KEY(eId));
+
+3.
+ALTER TABLE Bet ADD FOREIGN KEY (bGambler) REFERENCES Gambler(gId);
+ALTER TABLE Bet ADD FOREIGN KEY (bEvent) REFERENCES Event(eId);
+
+4.
+INSERT INTO Gambler VALUES (1, 'MacBeth', 'macbeth@macbeth.com', 1);
+
+5.
+INSERT INTO Gambler VALUES (2, 'Betty', 'betty@betty.com', 1);
+
+6.
+INSERT INTO Event VALUES (1, 'SnailRace', '2021/02/01', 'Win');
+
+7.
+INSERT INTO Event VALUES (2, 'CaterpillarFight', '2021/02/02', 'Lose');
+
+8.
+INSERT INTO Bet VALUES (1, 1, 1, 1, 'Turbo Wins');
+
+9.
+INSERT INTO Bet VALUES (2, 2, 2, 1, 'Butterfly Loses');
+
+10.
+UPDATE Event SET eDate='2021/02/03' WHERE eName='SnailRace';
+
+11.
+CREATE USER 'LUser1'@'%' identified by 'LUser1';
+GRANT RELOAD ON *.* TO LUser1;
+
+CREATE USER 'LUser2'@'%' identified by 'LUser2';
+GRANT RELOAD ON *.* TO LUser2;
+
+12.
+GRANT SELECT(gEmail), INSERT(gName, gCredit), UPDATE(gName, gEmail, gCredit) ON DBet.Gambler TO LUser1;
+GRANT SELECT(bId, bGambler, bAmount, bResult), INSERT, UPDATE ON DBet.Bet TO LUser1;
+GRANT SELECT(eId, eDate), INSERT(eId, eName, eDate), UPDATE(eId, eName) ON DBet.Event TO LUser1;
+
+CREATE VIEW Vista1 AS SELECT gId, gCredit from Gambler;
+GRANT SELECT ON DBet.Vista1 TO LUser1;
+CREATE VIEW Vista2 AS SELECT bId, bEvent from Bet WHERE bResult LIKE '*win*';
+GRANT SELECT ON DBet.Vista2 TO LUser1;
+
+DELIMITER //
+
+CREATE PROCEDURE Rutina1(IN Id INT, IN fecha DATE)
+BEGIN
+    UPDATE Event SET eDate=fecha WHERE eId=Id &&  eDate>NOW();
+END //
+
+DELIMITER ;
+
+GRANT EXECUTE ON PROCEDURE DBet.Rutina1 TO LUser1;
+CALL Rutina1(1,'2021/02/03');
+
+DELIMITER //
+
+CREATE PROCEDURE Rutina2(IN Id INT, IN IMP INT)
+BEGIN
+    UPDATE Bet SET bAmount=IMP WHERE bId=Id AND (SELECT eDate FROM Event WHERE eId=bEvent)>NOW();
+END //
+
+DELIMITER ;
+
+GRANT EXECUTE ON PROCEDURE DBet.Rutina2 TO LUser1;
+CALL Rutina2(1,1);
+
+GRANT SELECT(gId, gCredit), INSERT, UPDATE(gId, gName, gCredit) ON DBet.Gambler TO LUser2;
+GRANT SELECT(bGambler, bEvent, bResult), INSERT(bGambler, bEvent, bAmount), UPDATE(bId, bGambler, bEvent) ON DBet.Bet TO LUser2;
+GRANT SELECT(eName, eDate), INSERT(eId, eName, eDate), UPDATE ON DBet.Event TO LUser2;
+
+CREATE VIEW Vista3 AS select gId, gName, eDate from Gambler join Event WHERE YEAR(eDate)=2021;
+GRANT SELECT ON DBet.Vista3 TO LUser2;
+CREATE VIEW Vista4 AS select eId, eName, bAmount from Event inner join Bet ON eId=bEvent WHERE eDate=NOW();
+GRANT SELECT ON DBet.Vista4 TO LUser2;
+
+DELIMITER //
+
+CREATE PROCEDURE Rutina3(IN Id INT)
+BEGIN
+    UPDATE Bet SET bAmount=bAmount*2 WHERE (SELECT gCredit from Gambler where gId=Id)>=bAmount*2;
+END //
+
+DELIMITER ;
+
+GRANT EXECUTE ON PROCEDURE DBet.Rutina3 TO LUser2;
+CALL Rutina3(1);
+
+DELIMITER //
+
+CREATE PROCEDURE Rutina4(IN Id INT, IN Imp INT)
+BEGIN
+    UPDATE Bet SET bAmount=Imp WHERE bId=Id;
+END //
+
+DELIMITER ;
+
+GRANT EXECUTE ON PROCEDURE DBet.Rutina4 TO LUser2;
+CALL Rutina4(1, 1);

@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rdf:RDF
+	xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+	xmlns:owl="http://www.w3.org/2002/07/owl#"
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+	xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+	xmlns:foaf="http://xmlns.com/foaf/0.1/">
+
+<rdf:Description rdf:about="http://gipuzkoa.eus/resource/jm-barandiaran">
+	<rdf:type rdf:resource="http://dbpedia.org/ontology/museum"/>
+	<rdfs:label xml:lang="eu">JM Barandiaran</rdfs:label>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://gipuzkoa.eus/resource/ataun">
+	<rdfs:label>Ataun</rdfs:label>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://gipuzkoa.eus/resource/jm-barandiaran">
+	<kokalekua xmlns="http://gipuzkoa.eus/prop/" rdf:resource="http://gipuzkoa.eus/resource/ataun"/>
+	<subject xmlns="http://purl.org/dc/elements/1.1/" rdf:resource="http://gipuzkoa.eus/resource/jose-miguel-barandiaran"/>
+	<openingDate xmlns="http://dbpedia.org/ontology/" rdf:datatype="http://www.w3.org/2001/XMLSchema#date">07/07/2015</openingDate>
+	<kopurua xmlns="http://gipuzkoa.eus/prop/" rdf:datatype="http://www.w3.org/2001/XMLSchema#int">457</kopurua>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://gipuzkoa.eus/resource/mikel-aranguren">
+	<rdf:type rdf:resource="http://xmlns.com/foaf/0.1/person"/>
+	<worksFor xmlns="http://vocab.data.gov/def/drm#" rdf:resource="http://gipuzkoa.eus/resource/jm-barandiaran"/>
+	<bizilekua xmlns="http://gipuzkoa.eus/prop/" rdf:resource="http://gipuzkoa.eus/resource/bilbo"/>
+	<foaf:name>Mikel Aranguren</foaf:name>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://gipuzkoa.eus/resource/leire-bardaji">
+	<rdf:type rdf:resource="http://xmlns.com/foaf/0.1/person"/>
+	<worksFor xmlns="http://vocab.data.gov/def/drm#" rdf:resource="http://gipuzkoa.eus/resource/jm-barandiaran"/>
+	<bizilekua xmlns="http://gipuzkoa.eus/prop/" rdf:resource="http://gipuzkoa.eus/resource/ataun"/>
+	<foaf:name>Leire Bardaji</foaf:name>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://gipuzkoa.eus/resource/jon-alfaro">
+	<rdf:type rdf:resource="http://xmlns.com/foaf/0.1/person"/>
+	<worksFor xmlns="http://vocab.data.gov/def/drm#" rdf:resource="http://gipuzkoa.eus/resource/jm-barandiaran"/>
+	<bizilekua xmlns="http://gipuzkoa.eus/prop/" rdf:resource="http://gipuzkoa.eus/resource/donostia"/>
+	<foaf:name>Jon Alfaro</foaf:name>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://gipuzkoa.eus/resource/san-telmo">
+	<rdf:type rdf:resource="http://dbpedia.org/ontology/museum"/>
+	<rdfs:label xml:lang="eu">San Telmo</rdfs:label>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://gipuzkoa.eus/resource/donostia">
+	<rdfs:label>Donostia</rdfs:label>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://gipuzkoa.eus/resource/san-telmo">
+	<kokalekua xmlns="http://gipuzkoa.eus/prop/" rdf:resource="http://gipuzkoa.eus/resource/donostia"/>
+	<subject xmlns="http://purl.org/dc/elements/1.1/" rdf:resource="http://gipuzkoa.eus/resource/kultura"/>
+	<openingDate xmlns="http://dbpedia.org/ontology/" rdf:datatype="http://www.w3.org/2001/XMLSchema#date">24/10/2011</openingDate>
+	<kopurua xmlns="http://gipuzkoa.eus/prop/" rdf:datatype="http://www.w3.org/2001/XMLSchema#int">1256</kopurua>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://gipuzkoa.eus/resource/mikel-aranguren">
+	<worksFor xmlns="http://vocab.data.gov/def/drm#" rdf:resource="http://gipuzkoa.eus/resource/san-telmo"/>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://gipuzkoa.eus/resource/aitor-labajo">
+	<rdf:type rdf:resource="http://xmlns.com/foaf/0.1/person"/>
+	<worksFor xmlns="http://vocab.data.gov/def/drm#" rdf:resource="http://gipuzkoa.eus/resource/san-telmo"/>
+	<bizilekua xmlns="http://gipuzkoa.eus/prop/" rdf:resource="http://gipuzkoa.eus/resource/eibar"/>
+	<foaf:name>Aitor Labajo</foaf:name>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://gipuzkoa.eus/resource/gugenheim">
+	<rdf:type rdf:resource="http://dbpedia.org/ontology/museum"/>
+	<rdfs:label xml:lang="eu">Gugenheim</rdfs:label>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://gipuzkoa.eus/resource/bilbo">
+	<rdfs:label>Bilbo</rdfs:label>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://gipuzkoa.eus/resource/gugenheim">
+	<kokalekua xmlns="http://gipuzkoa.eus/prop/" rdf:resource="http://gipuzkoa.eus/resource/bilbo"/>
+	<subject xmlns="http://purl.org/dc/elements/1.1/" rdf:resource="http://gipuzkoa.eus/resource/artea"/>
+	<openingDate xmlns="http://dbpedia.org/ontology/" rdf:datatype="http://www.w3.org/2001/XMLSchema#date">25/11/1991</openingDate>
+	<kopurua xmlns="http://gipuzkoa.eus/prop/" rdf:datatype="http://www.w3.org/2001/XMLSchema#int">36</kopurua>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://gipuzkoa.eus/resource/mikel-aranguren">
+	<worksFor xmlns="http://vocab.data.gov/def/drm#" rdf:resource="http://gipuzkoa.eus/resource/gugenheim"/>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://gipuzkoa.eus/resource/aitor-labajo">
+	<worksFor xmlns="http://vocab.data.gov/def/drm#" rdf:resource="http://gipuzkoa.eus/resource/gugenheim"/>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://gipuzkoa.eus/resource/miren-aranguren">
+	<rdf:type rdf:resource="http://xmlns.com/foaf/0.1/person"/>
+	<worksFor xmlns="http://vocab.data.gov/def/drm#" rdf:resource="http://gipuzkoa.eus/resource/gugenheim"/>
+	<bizilekua xmlns="http://gipuzkoa.eus/prop/" rdf:resource="http://gipuzkoa.eus/resource/bilbo"/>
+	<foaf:name>Miren Aranguren</foaf:name>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://gipuzkoa.eus/resource/eneko-aranguren">
+	<rdf:type rdf:resource="http://xmlns.com/foaf/0.1/person"/>
+	<worksFor xmlns="http://vocab.data.gov/def/drm#" rdf:resource="http://gipuzkoa.eus/resource/gugenheim"/>
+	<bizilekua xmlns="http://gipuzkoa.eus/prop/" rdf:resource="http://gipuzkoa.eus/resource/bilbo"/>
+	<foaf:name>Eneko Aranguren</foaf:name>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://gipuzkoa.eus/resource/michael-bush">
+	<rdf:type rdf:resource="http://xmlns.com/foaf/0.1/person"/>
+	<worksFor xmlns="http://vocab.data.gov/def/drm#" rdf:resource="http://gipuzkoa.eus/resource/gugenheim"/>
+	<bizilekua xmlns="http://gipuzkoa.eus/prop/" rdf:resource="http://gipuzkoa.eus/resource/boston"/>
+	<foaf:name>Michael Bush</foaf:name>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://gipuzkoa.eus/resource/soledad-barroso">
+	<rdf:type rdf:resource="http://xmlns.com/foaf/0.1/person"/>
+	<worksFor xmlns="http://vocab.data.gov/def/drm#" rdf:resource="http://gipuzkoa.eus/resource/gugenheim"/>
+	<bizilekua xmlns="http://gipuzkoa.eus/prop/" rdf:resource="http://gipuzkoa.eus/resource/paris"/>
+	<foaf:name>Soledad Barroso</foaf:name>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://gipuzkoa.eus/resource/juan-goytisolo">
+	<rdf:type rdf:resource="http://xmlns.com/foaf/0.1/person"/>
+	<worksFor xmlns="http://vocab.data.gov/def/drm#" rdf:resource="http://gipuzkoa.eus/resource/gugenheim"/>
+	<foaf:name>Juan Goytisolo</foaf:name>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://gipuzkoa.eus/resource/maialen-albizuri">
+	<rdf:type rdf:resource="http://xmlns.com/foaf/0.1/person"/>
+	<worksFor xmlns="http://vocab.data.gov/def/drm#" rdf:resource="http://gipuzkoa.eus/resource/gugenheim"/>
+	<bizilekua xmlns="http://gipuzkoa.eus/prop/" rdf:resource="http://gipuzkoa.eus/resource/durango"/>
+	<foaf:name>Maialen Albizuri</foaf:name>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://gipuzkoa.eus/resource/iratxe-gandiaga">
+	<rdf:type rdf:resource="http://xmlns.com/foaf/0.1/person"/>
+	<worksFor xmlns="http://vocab.data.gov/def/drm#" rdf:resource="http://gipuzkoa.eus/resource/gugenheim"/>
+	<bizilekua xmlns="http://gipuzkoa.eus/prop/" rdf:resource="http://gipuzkoa.eus/resource/eibar"/>
+	<foaf:name>Iratxe Gandiaga</foaf:name>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://gipuzkoa.eus/resource/mark-wilkinson">
+	<rdf:type rdf:resource="http://xmlns.com/foaf/0.1/person"/>
+	<worksFor xmlns="http://vocab.data.gov/def/drm#" rdf:resource="http://gipuzkoa.eus/resource/gugenheim"/>
+	<bizilekua xmlns="http://gipuzkoa.eus/prop/" rdf:resource="http://gipuzkoa.eus/resource/otawa"/>
+	<foaf:name>Mark Wilkinson</foaf:name>
+</rdf:Description>
+
+</rdf:RDF>
